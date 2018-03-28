@@ -14,6 +14,7 @@
 """
 
 from itertools import count
+from json.decoder import JSONDecodeError
 from urllib.parse import urlparse
 
 import requests
@@ -63,10 +64,17 @@ class Proxy:
                       "id": id},
                 auth=auth,
                 timeout=timeout
-            ).json()
-            if resp.get('error') is not None:
-                raise RpcException(resp['error'], method, params)
-            return resp['result']
+            )
+
+            try:
+                r = resp.json()
+            except JSONDecodeError:
+                print(resp.content)
+                raise RuntimeError(f'something went wrong: {resp.content}')
+
+            if r.get('error') is not None:
+                raise RpcException(r['error'], method, params)
+            return r['result']
 
         return call
 
