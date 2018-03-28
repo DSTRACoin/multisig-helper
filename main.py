@@ -152,8 +152,9 @@ def create_tx(ctx, p2sh_address, recipient_list_file, hexadecimal_tx_file):
     norm_recipients = {k: float(v) for k, v in recipients.items()}
 
     hexadecimal_tx = RPC.createrawtransaction(vins, norm_recipients)
-    ctx.invoke(dump_tx, hexadecimal_tx=hexadecimal_tx)
     hexadecimal_tx_file.write(hexadecimal_tx)
+
+    ctx.invoke(dump_tx, hexadecimal_tx=hexadecimal_tx)
 
     print(f'Unsigned transaction has been saved on {hexadecimal_tx_file.name}.')
 
