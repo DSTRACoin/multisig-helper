@@ -145,7 +145,7 @@ def create_tx(ctx, p2sh_address, recipient_list_file, hexadecimal_tx_file):
         click.echo(click.style(f'Insufficient balance: {balance} < {total_amount} + {fee}', fg='red'))
         return
 
-    recipients[p2sh_address] = charge  # Send charge to the sender address
+    recipients[p2sh_address] = float(charge)  # Send charge to the sender address
 
     vins = [{'txid': x['txid'], 'vout': x['vout']} for x in uxtos]  # TODO: implement UXTO selector
 
