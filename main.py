@@ -139,7 +139,7 @@ def create_tx(ctx, p2sh_address, recipient_list_file, hexadecimal_tx_file):
     fee = Decimal('1')  # TODO: implement fee estimator
     balance = Decimal(f"{sum(map(lambda x: x['amount'], uxtos)):.9f}")
     total_amount = sum(recipients.values())
-    charge = balance - total_amount - fee
+    balance = Decimal(sum(map(lambda x: x['amount'], uxtos)))
 
     if charge < 0:
         click.echo(click.style(f'Insufficient balance: {balance} < {total_amount} + {fee}', fg='red'))
