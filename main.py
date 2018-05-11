@@ -283,7 +283,7 @@ def broadcast_tx(ctx, hexadecimal_tx):
     print(f'TX ID: {r}')
 
 
-INSIGHT_URL = 'https://explorer.dstra.io/api'
+INSIGHT_URL = 'https://blocks.dstra.io/api'
 
 RPC = Proxy("http://a:b@127.0.0.1:5170")
 
