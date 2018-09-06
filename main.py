@@ -282,7 +282,7 @@ def broadcast_tx(ctx, hexadecimal_tx):
 
 INSIGHT_URL = 'https://blocks.dstra.io/api'
 
-RPC = Proxy("http://a:b@127.0.0.1:5170")
+RPC = Proxy("http://a:b@127.0.0.1:5270")
 
 CLI = click.CommandCollection(sources=[
     keypair,
