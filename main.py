@@ -253,15 +253,12 @@ def dump_tx(hexadecimal_tx):
         return _(index, addresses, value)
 
     txid = r['txid']
-    created_at = datetime.datetime.fromtimestamp(r['time'])
     vin = [_vin(x['txid'], x['vout']) for x in r['vin']]
     vout = [_vout(x['n'], x['scriptPubKey']['addresses'], x['value']) for x in r['vout']]
     fee = sum(vin) - sum(vout)
 
     print(f'TX ID: {txid}\n'
           f'TX fee: {fee:.8f}\n')
-
-    print(f'Created at: {created_at}\n')
 
     print('Inputs:  --------------------------------------------------------------------------------------------------')
     print('\n'.join(map(str, vin)))
