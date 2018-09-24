@@ -82,11 +82,14 @@ def create_wallet(ctx, required_keys, hexadecimal_public_keys):
     """
     Create m-n multisig wallet
     """
-    account = get_account_name('wallet')
-    r = RPC.addmultisigaddress(required_keys, [*hexadecimal_public_keys], account)
-    print(f'Account name: {account}')
-    ctx.invoke(dump_wallet, p2sh_address=r)
+    r = RPC.createmultisig(required_keys, [*hexadecimal_public_keys])
 
+    print(f'P2SH address: {r["address"]}\n'
+          f'Redeem script: {r["redeemScript"]}\n'
+          f'Participant public keys: {",".join(hexadecimal_public_keys)}\n'
+          f'No. of required signs: {required_keys}')
+
+    click.echo(click.style(f'Multi-sig wallet was created successfully. Keep P2SH address and Redeem script in safe place.', fg='green'))
 
 @wallet.command()
 @click.argument('p2sh_address')
