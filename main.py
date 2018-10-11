@@ -137,7 +137,19 @@ def create_tx(ctx, p2sh_address, recipient_list_file, hexadecimal_tx_file):
         return
 
     recipient_reader = csv.reader(recipient_list_file)
-    recipients = {x[0]: Decimal(x[1]) for x in recipient_reader if len(x) == 2}
+
+    recipients = {}
+    for row in recipient_reader:
+        if len(row) != 2:
+            continue
+
+        address = row[0]
+        amount = Decimal(row[1])
+
+        if address in recipients:
+            recipients[address] += amount
+        else:
+            recipients[address] = amount
 
     fee = Decimal('0.1')  # TODO: implement fee estimator
     balance = Decimal(f"{sum(map(lambda x: x['amount'], uxtos)):.9f}")
